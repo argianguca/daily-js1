@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/public/css/tailwind.css">
+    <title>Drum (30 Days of Javascript)</title>
+</head>
+<body>
+    <div class="min-h-screen flex items-center justify-center bg-gray-300">
+        <div class="keys grid grid-cols-9 gap-4 text-center">
+            <div data-key="65" class="key bg-gray-400 text-white rounded-lg px-2 py-2">
+                <kbd>A</kbd>
+                <br>
+                <span class="sound">clap</span>
+            </div>
+
+            <div data-key="83" class="key bg-gray-400 text-white rounded-lg px-2 py-2">
+                <kbd>S</kbd>
+                <br>
+                <span class="sound">hihat</span>
+            </div>
+
+            <div data-key="68" class="key bg-gray-400 text-white rounded-lg px-2 py-2">
+                <kbd>D</kbd>
+                <br>
+                <span class="sound">kick</span>
+            </div>
+            
+            <div data-key="70" class="key bg-gray-400 text-white rounded-lg px-2 py-2">
+                <kbd>F</kbd>
+                <br>
+                <span class="sound">openhat</span>
+            </div>
+            
+            <div data-key="71" class="key bg-gray-400 text-white rounded-lg px-2 py-2">
+                <kbd>G</kbd>
+                <br>
+                <span class="sound">boom</span>
+            </div>
+            
+            <div data-key="72" class="key bg-gray-400 text-white rounded-lg px-2 py-2">
+                <kbd>H</kbd>
+                <br>
+                <span class="sound">ride</span>
+            </div>
+            
+            <div data-key="74" class="key bg-gray-400 text-white rounded-lg px-2 py-2">
+                <kbd>J</kbd>
+                <br>
+                <span class="sound">snare</span>
+            </div>
+            
+            <div data-key="75" class="key bg-gray-400 text-white rounded-lg px-2 py-2">
+                <kbd>K</kbd>
+                <br>
+                <span class="sound">tom</span>
+            </div>
+            
+            <div data-key="76" class="key bg-gray-400 text-white rounded-lg px-2 py-2">
+                <kbd>L</kbd>
+                <br>
+                <span class="sound">tink</span>
+            </div>
+
+        </div>
+    </div>
+
+
+    <audio data-key="65" src="/public/sounds/clap.wav"></audio>
+    <audio data-key="83" src="/public/sounds/hihat.wav"></audio>
+    <audio data-key="68" src="/public/sounds/kick.wav"></audio>
+    <audio data-key="70" src="/public/sounds/openhat.wav"></audio>
+    <audio data-key="71" src="/public/sounds/boom.wav"></audio>
+    <audio data-key="72" src="/public/sounds/ride.wav"></audio>
+    <audio data-key="74" src="/public/sounds/snare.wav"></audio>
+    <audio data-key="75" src="/public/sounds/tom.wav"></audio>
+    <audio data-key="76" src="/public/sounds/tink.wav"></audio>
+
+
+
+
+    <script>
+        function playSound(e) {
+            const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+            const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+            console.log(audio);
+            if(!audio) return;
+            audio.currentTime = 0;
+            audio.play();
+            console.log(key);
+            key.classList.add('transition', 'transform', '-translate-y-6');
+        }
+        
+        function removeTransition(e) {
+            this.classList.remove('transition', 'transform', '-translate-y-6')
+        }
+        const keys = document.querySelectorAll('.key');
+        keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+
+        window.addEventListener('keydown', playSound);
+    </script>
+</body>
+</html>
